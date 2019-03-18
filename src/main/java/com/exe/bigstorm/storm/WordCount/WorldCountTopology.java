@@ -45,7 +45,9 @@ public class WorldCountTopology {
         // 设置任务第三个 bolt 组件 将结果保存到Redis 分组策略 随机分组
         //builder.setBolt("mywordCount_redisBolt",createRedisBolt()).shuffleGrouping("myworldCount_total");
         // 与HDFS 集成
-        builder.setBolt("mywordCount_hdfsBolt",createHDFSBolt()).shuffleGrouping("myworldCount_total");
+        //builder.setBolt("mywordCount_hdfsBolt",createHDFSBolt()).shuffleGrouping("myworldCount_total");
+        // 与HBase 集成
+        builder.setBolt("mywordCount_hdfsBolt",new WordCountHBaseBolt()).shuffleGrouping("myworldCount_total");
 
         // 创建一个 topology 任务
         StormTopology wc = builder.createTopology();
